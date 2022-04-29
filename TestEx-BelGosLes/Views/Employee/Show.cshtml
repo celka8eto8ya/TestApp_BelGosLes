@@ -1,0 +1,174 @@
+﻿@model IEnumerable<TestEx_BelGosLes.Models.DTO.EmployeeDTO>
+
+<div class="container mainSize col-12">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="~/Company/Show">Companies</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Employees</li>
+        </ol>
+    </nav>
+
+    <div class="jumbotron p-2 mb-4">
+        <div class="lead">
+            <div class="table-responsive col-md-12" id="divajaxCall">
+                @using (Html.BeginForm("ExporDataToFile", "Employee", FormMethod.Post))
+                {
+                    <div class="row justify-content-center">
+
+                        <div class="col-md-3">
+                            <label>
+                                <input id="ExportToWord" name="Export" type="radio"
+                                       value="Word" />
+                                <i class="far fa-file-word">  Export To Word (For Print)</i>
+                            </label>
+                        
+
+                            <div class="row  mt-4 justify-content-start">
+                                <div class="col-8">
+                                    <label class="form-label" name="">Choose Department for Word doc. :</label>
+                                </div>
+                                <div class="col-9 pl-4">
+                                    <select name="department" class="form-select form-control" aria-label="Select">
+                                        <option class="form-control" selected value="All">All</option>
+                                        @foreach (var employee in ViewBag.Employees)
+                                        {
+                                            <option class="form-control" value="@employee.Department">@employee.Department</option>
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="col-md-3">
+                            <label>
+                                <input id="ExportToJson" name="Export" type="radio"
+                                       value="Json" />
+                                <i class="fab fa-js-square">  Export To Json</i>
+                            </label>
+                        </div>
+                        <div class="col-md-3">
+                            <label>
+                                <input id="ExportToXml" name="Export" type="radio"
+                                       value="Xml" />
+                                <i class="far fa-file-code">  Export To XML</i>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12" style="text-align:center; padding : 5px 5px 5px 5px">
+                            <button id="btnExportData" type="submit" value="ExportData" name="action">
+                                <i class="fas fa-file-download"> Export Data </i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="row" style="text-align:center; padding : 5px 5px 5px 5px"></div>
+                }
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <div class="row rowSize ">
+
+        <div class="row mb-3 pl-0 col-10 justify-content-start">
+            <a asp-action="Create" asp-route-id="@ViewBag.Company.Id" asp-controller="Employee" class="btn btn-primary col-4 mb-2">New Employee</a>
+            <h2 class="text-center col-8 pl-5">Employees by Company: <span class="badge bg-secondary text-white">@ViewBag.Company.Name</span></h2>
+        </div>
+
+        <div class=" col-12 CreateProj justify-content-center">
+            <table class="table table-striped table-hover @*table-sm*@ border-dark pt-4 ">
+                <thead>
+                    <tr>
+
+                        <th scope="col">
+                            №
+                        </th>
+                        <th scope="col">
+                            <a class="m-1" asp-action="Show" asp-route-sortOrder="@ViewBag.NameSortParm">
+                                Name
+                            </a>
+                        </th>
+                        <th scope="col">
+                            <a class="m-1" asp-action="Show" asp-route-sortOrder="@ViewBag.CreateDateSortParm">
+                                CreateDate
+                            </a>
+                        </th>
+                        <th scope="col">
+                            <a class="m-1" asp-action="Show" asp-route-sortOrder="@ViewBag.AddressSortParm">
+                                Address
+                            </a>
+                        </th>
+                        <th scope="col">
+                            <a class="m-1" asp-action="Show" asp-route-sortOrder="@ViewBag.PhoneSortParm">
+                                Phone
+                            </a>
+                        </th>
+                        <th scope="col">
+                            <a class="m-1" asp-action="Show" asp-route-sortOrder="@ViewBag.PositionSortParm">
+                                Position
+                            </a>
+                        </th>
+                        <th scope="col">
+                            <a class="m-1" asp-action="Show" asp-route-sortOrder="@ViewBag.DepartmentSortParm">
+                                Department
+                            </a>
+                        </th>
+                        <th scope="col">
+                            <a class="m-1">
+                                Options
+                            </a>
+                        </th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    @{ int i = 1;
+
+                        foreach (var employee in Model)
+                        {
+                            <tr>
+
+                                <td scope="row">@i</td>
+                                <td scope="row">@employee.FullName</td>
+                                <td scope="row">@employee.CreateDate</td>
+                                <td scope="row">@employee.Address</td>
+                                <td scope="row">@employee.Phone</td>
+                                <td scope="row">@employee.Position</td>
+                                <td scope="row">@employee.Department</td>
+
+                                <td class="col-1 px-4">
+
+                                    <a class="icons" data-title="Edit" asp-action="Edit" asp-route-id="@employee.Id" asp-controller="Employee">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
+                                             class="bi bi-pencil-square" viewBox="0 0 20 20">
+                                            <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
+                                            <path fill-rule="evenodd"
+                                                  d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
+                                        </svg>
+                                    </a>
+
+                                    <a class="icons third" data-title="Remove" asp-controller="Employee" asp-route-id="@employee.Id" asp-action="Delete">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
+                                             class="bi bi-trash" viewBox="0 0 20 20">
+                                            <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z" />
+                                            <path fill-rule="evenodd"
+                                                  d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z" />
+                                        </svg>
+                                    </a>
+
+                                </td>
+                            </tr>
+                            i++;
+                        } }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+
+<script src="https://kit.fontawesome.com/00267cf40d.js" crossorigin="anonymous"></script>

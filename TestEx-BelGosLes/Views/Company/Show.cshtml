@@ -1,0 +1,164 @@
+﻿@model IEnumerable<TestEx_BelGosLes.Models.DTO.CompanyDTO>
+
+
+<div class="jumbotron p-2 mb-4">
+    <div class="lead">
+        <div class="table-responsive col-md-12" id="divajaxCall">
+            @using (Html.BeginForm("ExporDataToFile", "Company", FormMethod.Post))
+            {
+                <div class="row justify-content-center">
+
+                    <div class="col-md-3">
+                        <label>
+                            <input id="ExportToWord" name="Export" type="radio"
+                                   value="Word" />
+                            <i class="far fa-file-word">  Export To Word (For Print)</i>
+                        </label>
+                    </div>
+                    <div class="col-md-3">
+                        <label>
+                            <input id="ExportToJson" name="Export" type="radio"
+                                   value="Json" />
+                            <i class="fab fa-js-square">  Export To Json</i>
+                        </label>
+                    </div>
+                    <div class="col-md-3">
+                        <label>
+                            <input id="ExportToXml" name="Export" type="radio"
+                                   value="Xml" />
+                            <i class="far fa-file-code">  Export To XML</i>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12" style="text-align:center; padding : 5px 5px 5px 5px">
+                        <button id="btnExportData" type="submit" value="ExportData" name="action">
+                            <i class="fas fa-file-download"> Export Data </i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="row" style="text-align:center; padding : 5px 5px 5px 5px"></div>
+            }
+        </div>
+    </div>
+</div>
+
+<div class="container mainSize col-12">
+    <div class="row rowSize">
+
+        <div class="CreateProj col-12 pr-0">
+
+            <div class="row  mt-3 mb-3 pl-0 col-11">
+                <a href="~/Company/Create" class="btn btn-primary col-3 ">New Company</a>
+            </div>
+
+
+            <table class="table table-striped table-hover @*table-sm*@ border-dark pt-4 ">
+                <thead>
+                    <tr>
+                        <th scope="col">
+
+                        </th>
+                        <th scope="col">
+                            №
+                        </th>
+                        <th scope="col">
+                            <a class="m-1" asp-action="Show" asp-route-sortOrder="@ViewBag.NameSortParm">
+                                Name
+                            </a>
+
+                        </th>
+                        <th scope="col">
+                            <a class="m-1" asp-action="Show" asp-route-sortOrder="@ViewBag.AddressSortParm">
+                                Address
+                            </a>
+                        </th>
+                        <th scope="col">
+                            <a class="m-1" asp-action="Show" asp-route-sortOrder="@ViewBag.AddressSortParm">
+                                HeadFullName
+                            </a>
+                        </th>
+                        <th scope="col">
+                            <a class="m-1" asp-action="Show" asp-route-sortOrder="@ViewBag.CreateDateSortParm">
+                                CreateDate
+                            </a>
+                        </th>
+                        <th scope="col">
+                            <a class="m-1" asp-action="Show" asp-route-sortOrder="@ViewBag.UpdateDateSortParm">
+                                UpdateDate
+                            </a>
+                        </th>
+                        <th scope="col">
+                            <a class="m-1" asp-action="Show" asp-route-sortOrder="@ViewBag.PhoneNumberSortParm">
+                                Phone
+                            </a>
+                        </th>
+                        <th scope="col">
+                            <a class="m-1" asp-action="Show" asp-route-sortOrder="@ViewBag.EmailSortParm">
+                                Email
+                            </a>
+                        </th>
+                        <th scope="col">
+                            <a class="m-1">
+                                Options
+                            </a>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{ int i = 1;
+
+                        foreach (var company in Model)
+                        {
+                            <tr>
+                                <td class="pl-5 col-1">
+                                    <a class="icons " data-title="Employees" asp-action="Show" asp-route-id="@company.Id" asp-controller="Employee">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-people" viewBox="0 0 20 20">
+                                            <path d="M15 14s1 0 1-1-1-4-5-4-5 3-5 4 1 1 1 1h8zm-7.978-1A.261.261 0 0 1 7 12.996c.001-.264.167-1.03.76-1.72C8.312 10.629 9.282 10 11 10c1.717 0 2.687.63 3.24 1.276.593.69.758 1.457.76 1.72l-.008.002a.274.274 0 0 1-.014.002H7.022zM11 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm3-2a3 3 0 1 1-6 0 3 3 0 0 1 6 0zM6.936 9.28a5.88 5.88 0 0 0-1.23-.247A7.35 7.35 0 0 0 5 9c-4 0-5 3-5 4 0 .667.333 1 1 1h4.216A2.238 2.238 0 0 1 5 13c0-1.01.377-2.042 1.09-2.904.243-.294.526-.569.846-.816zM4.92 10A5.493 5.493 0 0 0 4 13H1c0-.26.164-1.03.76-1.724.545-.636 1.492-1.256 3.16-1.275zM1.5 5.5a3 3 0 1 1 6 0 3 3 0 0 1-6 0zm3-2a2 2 0 1 0 0 4 2 2 0 0 0 0-4z" />
+                                        </svg>
+                                    </a>
+                                </td>
+
+                                <td scope="row">@i</td>
+                                <td scope="row">@company.Name</td>
+                                <td scope="row">@company.Address</td>
+                                <td scope="row">@company.HeadFullName</td>
+                                <td scope="row">@company.CreateDate</td>
+                                <td scope="row">@company.UpdateDate</td>
+                                <td scope="row">@company.PhoneNumber</td>
+                                <td scope="row">@company.Email</td>
+
+                                <td class="col-1 px-4">
+
+                                    <a class="icons" data-title="Edit" asp-action="Edit" asp-route-id="@company.Id" asp-controller="Company">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
+                                             class="bi bi-pencil-square" viewBox="0 0 20 20">
+                                            <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
+                                            <path fill-rule="evenodd"
+                                                  d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
+                                        </svg>
+                                    </a>
+
+                                    <a class="icons third" data-title="Remove" asp-controller="Company" asp-route-id="@company.Id" asp-action="Delete">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
+                                             class="bi bi-trash" viewBox="0 0 20 20">
+                                            <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z" />
+                                            <path fill-rule="evenodd"
+                                                  d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z" />
+                                        </svg>
+                                    </a>
+
+                                </td>
+                            </tr>
+                            i++;
+                        } }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+
+<script src="https://kit.fontawesome.com/00267cf40d.js" crossorigin="anonymous"></script>

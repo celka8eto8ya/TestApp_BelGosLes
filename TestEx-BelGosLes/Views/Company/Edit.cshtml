@@ -1,0 +1,88 @@
+﻿@model TestEx_BelGosLes.Models.DTO.CompanyDTO
+
+
+<form asp-action="Edit" asp-controller="Company" asp-anti-forgery="true" method="post" enctype="multipart/form-data">
+
+    <div class="container col-10 ">
+        <div class="validation" asp-validation-summary="ModelOnly"></div>
+    </div>
+    <div class="container col-10 ">
+        <div class="InputSuccess">@ViewBag.CreateResult</div>
+    </div>
+
+    <input type="text" name="Id" asp-for="Id" hidden />
+    <input type="text" name="CreateDate" asp-for="CreateDate" hidden />
+    <input type="text" name="UpdateDate" asp-for="UpdateDate" hidden />
+
+    <div class="container col-5 justify-content-center mt-3 ">
+        <h2 class="text-center">Edit Step:</h2>
+
+        <div class="row mt-4 justify-content-start">
+            <div class="col-3">
+                <label class="form-label" asp-for="Name">Name:</label>
+            </div>
+            <div class="col-9">
+                <input type="text" name="Name" class="form-control" asp-for="Name" />
+                <span asp-validation-for="Name" class="col-8" />
+            </div>
+        </div>
+
+        <div class="row mt-1 justify-content-start">
+            <div class="col-3">
+                <label class="form-label" asp-for="Address">Address:</label>
+            </div>
+            <div class="col-9">
+                <input type="text" name="Address" class="form-control" asp-for="Address" />
+                <span asp-validation-for="Address" class="col-8" />
+            </div>
+        </div>
+
+        <div class="row mt-1 justify-content-start">
+            <div class="col-3">
+                <label class="form-label" asp-for="HeadFullName">Head Full Name:</label>
+            </div>
+            <div class="col-9">
+                <input type="text" name="HeadFullName" class="form-control" asp-for="HeadFullName" />
+                <span asp-validation-for="HeadFullName" class="col-8" />
+            </div>
+        </div>
+
+        <div class="row mt-1 justify-content-start">
+            <div class="col-3">
+                <label class="form-label" asp-for="PhoneNumber">Phone Number:</label>
+            </div>
+            <div class="col-9">
+                <input type="tel" name="PhoneNumber" class="form-control" placeholder="+375001234567" minlength="9" asp-for="PhoneNumber" />
+                <span asp-validation-for="PhoneNumber" class="col-8" />
+            </div>
+        </div>
+
+        <div class="row mt-1 justify-content-start">
+            <div class="col-3">
+                <label class="form-label" asp-for="Email">Email:</label>
+            </div>
+            <div class="col-9">
+                <input type="text" name="Email" class="form-control" asp-for="Email" />
+                <span asp-validation-for="Email" class="col-8" />
+            </div>
+        </div>
+
+        <div class="row mb-5 mt-4 pb-4 justify-content-center">
+            <div class="col-4 ">
+                <a href="~/Company/Show" class="btn btn-primary  NewProject ">Back</a>
+            </div>
+            <div class="col-7">
+                <input class="btn btn-primary  NewProject col-7" type="submit" value="Edit">
+            </div>
+        </div>
+
+    </div>
+</form>
+
+
+
+@section scripts{
+
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+}
